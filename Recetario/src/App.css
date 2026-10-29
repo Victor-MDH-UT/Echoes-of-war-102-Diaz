@@ -1,0 +1,330 @@
+@import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Young+Serif&display=swap");
+
+/* ---------- Tokens de diseño ---------- */
+:root {
+  --fondo: #f5f7f9;
+  --superficie: #ffffff;
+  --tinta: #1c2530;
+  --tinta-suave: #4a5663;
+  --borde: #7c8794; /* contraste suficiente para bordes de campos (3:1) */
+  --linea: #dde2e8;
+  --cobalto: #1e4da1;
+  --cobalto-oscuro: #163b7c;
+  --cobalto-claro: #e8eefa;
+  --azafran: #e8b04a;
+  --error: #b3261e;
+  --error-fondo: #fdeceb;
+
+  --fuente-titulo: "Young Serif", Georgia, "Times New Roman", serif;
+  --fuente-texto: "Figtree", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --radio: 8px;
+  --espacio: 1rem;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+h1,
+h2 {
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* ---------- Estructura ---------- */
+.app {
+  min-height: 100vh;
+}
+
+/* Franja de azulejo: el único detalle decorativo de la página */
+.cabecera {
+  position: relative;
+  padding: 2.5rem 1.25rem 1.75rem;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.cabecera::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: conic-gradient(
+      var(--cobalto) 25%,
+      var(--azafran) 0 50%,
+      var(--cobalto) 0 75%,
+      var(--azafran) 0
+    )
+    0 0 / 24px 24px;
+}
+
+.cabecera h1 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  color: var(--cobalto);
+}
+
+.cabecera p {
+  margin: 0.5rem 0 0;
+  color: var(--tinta-suave);
+  max-width: 42ch;
+}
+
+.contenido {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 3rem;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 52rem) {
+  .contenido {
+    grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .panel-formulario {
+    position: sticky;
+    top: 1.5rem;
+  }
+}
+
+/* ---------- Formulario ---------- */
+.panel-formulario {
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+}
+
+.panel-formulario h2,
+.panel-lista h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.campo {
+  margin-bottom: 1.25rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.ayuda {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+}
+
+input,
+textarea {
+  width: 100%;
+  min-height: 2.75rem; /* objetivo táctil cómodo */
+  padding: 0.65rem 0.8rem;
+  font: inherit;
+  color: var(--tinta);
+  background: var(--superficie);
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+}
+
+textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+input::placeholder {
+  color: #6b7683;
+}
+
+input:hover,
+textarea:hover {
+  border-color: var(--tinta-suave);
+}
+
+input[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: var(--error);
+  background: var(--error-fondo);
+}
+
+.error {
+  margin: 0.4rem 0 0;
+  color: var(--error);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* ---------- Botones ---------- */
+.boton {
+  min-height: 2.75rem;
+  padding: 0.6rem 1.25rem;
+  font: inherit;
+  font-weight: 600;
+  border-radius: var(--radio);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.boton-primario {
+  width: 100%;
+  background: var(--cobalto);
+  color: #fff;
+}
+
+.boton-primario:hover {
+  background: var(--cobalto-oscuro);
+}
+
+.boton-secundario {
+  background: transparent;
+  color: var(--cobalto);
+  border-color: var(--cobalto);
+}
+
+.boton-secundario:hover {
+  background: var(--cobalto-claro);
+}
+
+.boton-peligro {
+  background: var(--error);
+  color: #fff;
+}
+
+.boton-peligro:hover {
+  background: #8f1e18;
+}
+
+/* ---------- Foco visible (teclado) ---------- */
+input:focus-visible,
+textarea:focus-visible,
+.boton:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--cobalto);
+  outline-offset: 2px;
+}
+
+/* ---------- Mensaje de estado ---------- */
+.mensaje {
+  margin: 1rem 0 0;
+  min-height: 1.5rem; /* reserva espacio para que nada salte */
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--cobalto-oscuro);
+}
+
+/* ---------- Lista de recetas ---------- */
+.contador {
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  color: var(--tinta-suave);
+}
+
+.vacio {
+  margin: 0;
+  padding: 1.5rem;
+  border: 1.5px dashed var(--borde);
+  border-radius: var(--radio);
+  color: var(--tinta-suave);
+  max-width: 48ch;
+}
+
+.lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--linea);
+}
+
+.receta {
+  border-bottom: 1px solid var(--linea);
+}
+
+summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.5rem;
+  padding: 0.75rem 0.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Indicador que muestra si la receta está abierta o cerrada */
+summary::after {
+  content: "";
+  flex-shrink: 0;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 2px solid var(--cobalto);
+  border-bottom: 2px solid var(--cobalto);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+details[open] > summary::after {
+  transform: rotate(-135deg);
+}
+
+summary:hover {
+  color: var(--cobalto);
+}
+
+.receta-detalle {
+  padding: 0.25rem 0.25rem 1.5rem;
+}
+
+.receta-texto {
+  margin: 0 0 1.25rem;
+  max-width: 62ch;
+  white-space: pre-line;
+  text-align: left;
+}
+
+.confirmacion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.confirmacion span {
+  font-weight: 600;
+}
+
+/* ---------- Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
